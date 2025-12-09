@@ -1,0 +1,209 @@
+[tool.poetry]
+name = "fractal-memory"
+version = "2.0.0"
+description = "Autonomous memory system with self-learning for AI agents"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/yourusername/fractal-memory"
+repository = "https://github.com/yourusername/fractal-memory"
+keywords = ["ai", "memory", "llm", "agents", "neo4j", "graph", "knowledge-graph"]
+packages = [
+    {include = "src"},
+    {include = "backend"},
+    {include = "cli"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+# Core
+graphiti-core = "^0.3.0"
+neo4j = "^5.15.0"
+redis = "^5.0.0"
+# LLM
+openai = "^1.0.0"
+# Validation & Serialization
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+# Backend
+fastapi = "^0.109.0"
+uvicorn = {extras = ["standard"], version = "^0.27.0"}
+# CLI
+typer = "^0.9.0"
+rich = "^13.7.0"
+httpx = "^0.26.0"
+# Utilities
+python-dotenv = "^1.0.0"
+numpy = "^1.24.0"
+# Async
+aiohttp = "^3.9.0"
+# Monitoring (optional)
+prometheus-client = {version = "^0.19.0", optional = true}
+opentelemetry-api = {version = "^1.22.0", optional = true}
+opentelemetry-sdk = {version = "^1.22.0", optional = true}
+opentelemetry-exporter-otlp = {version = "^1.22.0", optional = true}
+# ML (for clustering, optional)
+scikit-learn = {version = "^1.4.0", optional = true}
+# CLI (legacy)
+click = {version = "^8.1.0", optional = true}
+
+[tool.poetry.dev-dependencies]
+# Testing
+pytest = "^8.0.0"
+pytest-asyncio = "^0.23.0"
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+# Code quality
+black = "^24.0.0"
+isort = "^5.13.0"
+mypy = "^1.8.0"
+ruff = "^0.1.0"
+# Pre-commit
+pre-commit = "^3.6.0"
+
+[tool.poetry.extras]
+monitoring = ["prometheus-client", "opentelemetry-api", "opentelemetry-sdk", "opentelemetry-exporter-otlp"]
+ml = ["scikit-learn"]
+cli = ["click"]
+all = ["prometheus-client", "opentelemetry-api", "opentelemetry-sdk", "opentelemetry-exporter-otlp", "scikit-learn", "click"]
+
+[tool.poetry.scripts]
+fractal = "cli.main:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# ═══════════════════════════════════════════════════════
+# BLACK - Code Formatting
+# ═══════════════════════════════════════════════════════
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+# ═══════════════════════════════════════════════════════
+# ISORT - Import Sorting
+# ═══════════════════════════════════════════════════════
+[tool.isort]
+profile = "black"
+line_length = 100
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+skip_gitignore = true
+
+# ═══════════════════════════════════════════════════════
+# MYPY - Type Checking
+# ═══════════════════════════════════════════════════════
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_equality = true
+ignore_missing_imports = true
+
+# ═══════════════════════════════════════════════════════
+# PYTEST - Testing
+# ═══════════════════════════════════════════════════════
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--cov=src",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-fail-under=50",
+]
+markers = [
+    "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "unit: marks tests as unit tests",
+]
+asyncio_mode = "auto"
+
+# ═══════════════════════════════════════════════════════
+# RUFF - Fast Python Linter
+# ═══════════════════════════════════════════════════════
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+# ═══════════════════════════════════════════════════════
+# COVERAGE - Test Coverage
+# ═══════════════════════════════════════════════════════
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "@abstractmethod",
+]

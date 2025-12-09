@@ -1,0 +1,140 @@
+# ═══════════════════════════════════════════════════════
+# FRACTAL MEMORY SYSTEM - Production Dependencies
+# ═══════════════════════════════════════════════════════
+# Python 3.10+
+#
+# Установка:
+#   pip install -r requirements.txt
+#
+# Для разработки используйте:
+#   poetry install --with dev
+#   или
+#   pip install -r requirements.txt && pip install pytest black isort mypy
+
+# ═══════════════════════════════════════════════════════
+# CORE DEPENDENCIES
+# ═══════════════════════════════════════════════════════
+
+# Graph Memory (Graphiti)
+graphiti-core>=0.3.0,<0.4.0
+
+# Graph Database
+neo4j>=5.15.0,<6.0.0
+
+# Cache & Event Bus
+redis>=5.0.0,<6.0.0
+
+# ═══════════════════════════════════════════════════════
+# LLM & EMBEDDINGS
+# ═══════════════════════════════════════════════════════
+
+# OpenAI (primary LLM provider)
+openai>=1.0.0,<2.0.0
+
+# ═══════════════════════════════════════════════════════
+# VALIDATION & SERIALIZATION
+# ═══════════════════════════════════════════════════════
+
+# Pydantic v2 for data validation
+pydantic>=2.5.0,<3.0.0
+pydantic-settings>=2.1.0,<3.0.0
+
+# ═══════════════════════════════════════════════════════
+# UTILITIES
+# ═══════════════════════════════════════════════════════
+
+# Environment variables
+python-dotenv>=1.0.0,<2.0.0
+
+# Numerical operations
+numpy>=1.24.0,<2.0.0
+
+# ═══════════════════════════════════════════════════════
+# ASYNC & NETWORKING
+# ═══════════════════════════════════════════════════════
+
+# HTTP client
+aiohttp>=3.9.0,<4.0.0
+
+# Python built-in asyncio (no install needed, but documented for clarity)
+# asyncio>=3.4.3
+
+# ═══════════════════════════════════════════════════════
+# MONITORING (Optional - install separately if needed)
+# ═══════════════════════════════════════════════════════
+
+# Prometheus metrics
+# prometheus-client>=0.19.0,<1.0.0
+
+# OpenTelemetry
+# opentelemetry-api>=1.22.0,<2.0.0
+# opentelemetry-sdk>=1.22.0,<2.0.0
+# opentelemetry-exporter-otlp>=1.22.0,<2.0.0
+
+# ═══════════════════════════════════════════════════════
+# ML (Optional - for clustering)
+# ═══════════════════════════════════════════════════════
+
+# Scikit-learn for clustering
+# scikit-learn>=1.4.0,<2.0.0
+
+# ═══════════════════════════════════════════════════════
+# CLI (Optional)
+# ═══════════════════════════════════════════════════════
+
+# Click for CLI (replaced with Typer)
+# click>=8.1.0,<9.0.0
+
+# FastAPI for backend
+fastapi>=0.109.0,<1.0.0
+uvicorn[standard]>=0.27.0,<1.0.0
+
+# CLI tools
+typer>=0.9.0,<1.0.0
+rich>=13.7.0,<14.0.0
+httpx>=0.26.0,<1.0.0
+
+# ═══════════════════════════════════════════════════════
+# TESTING (Development only)
+# ═══════════════════════════════════════════════════════
+
+# Uncomment for development:
+# pytest>=8.0.0,<9.0.0
+# pytest-asyncio>=0.23.0,<1.0.0
+# pytest-cov>=4.1.0,<5.0.0
+# pytest-mock>=3.12.0,<4.0.0
+
+# ═══════════════════════════════════════════════════════
+# CODE QUALITY (Development only)
+# ═══════════════════════════════════════════════════════
+
+# Uncomment for development:
+# black>=24.0.0,<25.0.0
+# isort>=5.13.0,<6.0.0
+# mypy>=1.8.0,<2.0.0
+# ruff>=0.1.0,<1.0.0
+
+# ═══════════════════════════════════════════════════════
+# NOTES
+# ═══════════════════════════════════════════════════════
+#
+# Версии:
+# - Используем semantic versioning (^) для совместимости
+# - graphiti-core 0.3.x - последняя stable версия
+# - Neo4j 5.15+ - поддержка vector indexes
+#
+# Установка опциональных зависимостей:
+# - Monitoring: pip install prometheus-client opentelemetry-api opentelemetry-sdk
+# - ML: pip install scikit-learn
+# - CLI: pip install click
+# - All: pip install -r requirements.txt prometheus-client opentelemetry-api scikit-learn click
+#
+# Альтернатива - Poetry (рекомендуется):
+#   poetry install              # Production
+#   poetry install --with dev   # Development
+#   poetry install --extras all # All optional features
+
+
+# UI & Async helpers (REMOVED - replaced with FastAPI + CLI)
+# streamlit>=1.28.0  # REMOVED - using FastAPI instead
+# nest-asyncio>=1.5.8  # REMOVED - not needed with FastAPI

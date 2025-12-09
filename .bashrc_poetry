@@ -1,0 +1,2 @@
+# Добавить Poetry в PATH
+export PATH="/root/.local/bin:$PATH"

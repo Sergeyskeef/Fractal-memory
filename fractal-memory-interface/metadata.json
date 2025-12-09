@@ -1,0 +1,7 @@
+{
+  "name": "Fractal Memory Interface",
+  "description": "A web interface for interacting with the Fractal Memory AI agent (Mark), featuring chat, memory visualization, and statistics.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
